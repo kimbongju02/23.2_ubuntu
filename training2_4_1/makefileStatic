@@ -1,0 +1,11 @@
+staticLib : staticLib.c math_lib.a
+	gcc -g -I./lib -L./lib -o staticLib staticLib.c -Itest
+
+math_lib.a : lib/mAdd.o lib/mSub.o lib/mMul.o lib/mDiv.o
+	ar rcs math_lib.a $^
+
+lib/%.o : lib/%.c
+	gcc -I./lib -c -o $@ $<
+
+clean:
+	rm -f staticLib math_lib.a lib/*.o

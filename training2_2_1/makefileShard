@@ -1,0 +1,17 @@
+sharedLib : sharedLib.c mLib.so
+	gcc -I./lib -L./lib -o sharedLib sharedLib.c -Itest
+
+mLib.so.1.0.1 : lib/mAdd.o lib/mSub.o lib/mMul.o lib/mDiv.o
+	gcc -shared -Wl,-soname,mLib.so.1 -o mLib.so.1.0.1 $^
+
+mLib.so.1 : mLib.so.1.0.1
+	ln -s mLib.so.1.0.1 mLib.so.1
+
+mLib.so : mLib.so.1 mLib.so.1.0.1
+	ln -s mLib.so.1.0.1 mLib.so
+
+lib/%.o : lib/%.c
+	gcc -I./lib -L./lib -o $@ $<
+
+clean:
+	rm -f sharedLib mLib.* lib/*.o
