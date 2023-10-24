@@ -1,7 +1,0 @@
-dynamicLib : dynamicLib.c math_op.so
-	gcc -rdynamic -o $@ $< -ldl
-
-math_op.so : math_op.c
-	gcc -shared -o math_op.so -fPIC math_op.c
-
-
