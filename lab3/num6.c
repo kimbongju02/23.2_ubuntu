@@ -4,7 +4,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-int executeShellCommand(const char *command) {
+int execute_shell_command(const char *command) {
     int result = system(command);
 
     if (result == -1) {
@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
         strcat(command, " ");
     }
 
-    executeShellCommand(command);
+    execute_shell_command(command);
 
     return 0;
 }
